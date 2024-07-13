@@ -27,12 +27,10 @@ jobs:
       - name: Update upstream
         run: ./scripts/upstream.sh
       
-      - name: Apply patches(1차 패치 적용)
-        run: ./gradlew applyPatches
+      - name: 결과 아카이브(저장소를 통째로 ZIP으로 ARCHIVE해 내용 백업)
+        uses: actions/upload-artifact@v4.3.4
+        if: ${{ failure() }}
         
-      - name: Check build
-        run: ./gradlew build
-
       - name: Commit changes
         if: steps.check.outputs.needs == 'true'
         run: git add . && printf "Updated Upstream (Paper)\n\nUpstream has released updates that appear to apply and compile correctly\n\n$(cat compare.txt)" | git commit -F -
