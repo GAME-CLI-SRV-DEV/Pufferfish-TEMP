@@ -26,19 +26,12 @@ jobs:
         run: git config --global user.email "action@github.com" && git config --global user.name "Github Action"
 
       - name: Update upstream
-        if: steps.check.outputs.needs == 'true'
         run: ./gradlew updateUpstream
       
-      - name: Rebuild Patches(패치 재설정)
-        if: steps.check.outputs.paper == 'false' || steps.check.outputs.purpur == 'false'
-        run: ./gradlew --no-rebuild --stacktrace rebuildPatches
-          
       - name: Apply patches(1차 패치 적용)
-        if: steps.check.outputs.needs == 'true'
         run: ./gradlew applyPatches
         
       - name: Check build
-        if: steps.check.outputs.needs == 'true'
         run: ./gradlew build
 
       - name: Commit changes
