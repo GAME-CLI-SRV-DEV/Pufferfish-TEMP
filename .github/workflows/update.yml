@@ -22,7 +22,6 @@ jobs:
           java-version: 21
           
       - name: Configure Git
-        if: steps.check.outputs.needs == 'true'
         run: git config --global user.email "action@github.com" && git config --global user.name "Github Action"
 
       - name: Update upstream
