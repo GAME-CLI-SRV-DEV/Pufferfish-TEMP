@@ -20,11 +20,7 @@ jobs:
         with:
           distribution: zulu
           java-version: 21
-
-      - name: Determine if update is required
-        id: check
-        run: echo "needs=$(./gradlew -q checkNeedsUpdate)" >> $GITHUB_OUTPUT
-
+          
       - name: Configure Git
         if: steps.check.outputs.needs == 'true'
         run: git config --global user.email "action@github.com" && git config --global user.name "Github Action"
